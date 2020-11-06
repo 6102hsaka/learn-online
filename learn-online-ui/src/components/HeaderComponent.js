@@ -1,8 +1,11 @@
 import React , { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import Login from './LoginComponent';
+import Logout from './LogoutComponent';
 
 const Header = () => {
+    const {role} = useSelector(state => state)
     const [collapsed, setCollapsed] = useState(false);
     const toggleNavbar = () => setCollapsed(!collapsed);
     return (
@@ -25,7 +28,8 @@ const Header = () => {
                             <NavLink>Contact US</NavLink>
                         </NavItem>
                     </Nav>
-                    <Login />
+                    {role==="" && <Login />}
+                    {role!=="" && <Logout />}
                 </Collapse>
             </Navbar>
         </header>

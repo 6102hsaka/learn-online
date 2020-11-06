@@ -19,13 +19,25 @@ public class TeacherService {
 	private TeacherRepository teacherRepository;
 
 	public Mono<Teacher> saveTeacher(Teacher teacher) {
-		return getTeacherById(teacher.getId()).filter(t -> t.getId() != null).hasElement().flatMap(isPresent -> {
-			if (isPresent) {
-				return Mono.error(new DBException(DBExceptionCode.USER_ALREADY_EXIST));
-			}
-			return teacherRepository.insert(teacher).flatMap(t -> Mono.just(new Teacher(t.getId(), t.getName(),
-					t.getAge(), t.getSubject(), "", t.getMobileNo(), t.getEmailId())));
-		});
+//		return getTeacherById(teacher.getId()).filter(t -> t.getId() != null).hasElement().flatMap(isPresent -> {
+//			if (isPresent) {
+//				return Mono.error(new DBException(DBExceptionCode.USER_ALREADY_EXIST));
+//			}
+//			return teacherRepository.insert(teacher).flatMap(t -> Mono.just(new Teacher(t.getId(), t.getName(),
+//					t.getAge(), t.getSubject(), "", t.getMobileNo(), t.getEmailId())));
+//		});
+		return getTeacherById(teacher.getId())
+				.onErrorResume(exception -> {
+					if(exception instanceof DBException) {
+						DBException dbException = (DBException) exception;
+						if(dbException.getDbExceptionCode() != DBExceptionCode.USER_NOT_AVAILABLE) {
+							Mono.error(exception);
+						}
+						return teacherRepository.insert(teacher).flatMap(t -> Mono.just(new Teacher(t.getId(), t.getName(),
+								t.getAge(), t.getSubject(), "", t.getMobileNo(), t.getEmailId())));
+					}
+					return Mono.error(exception);
+				});
 
 	}
 

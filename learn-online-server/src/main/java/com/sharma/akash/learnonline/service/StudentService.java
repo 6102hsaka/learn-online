@@ -21,13 +21,25 @@ public class StudentService {
 	public Mono<Student> saveStudent(Student student) {
 		// student.id => student.class$student.rollNO
 		student.setId(student.getClassEnrolled() + "$" + student.getRollNumber());
-		return getStudentById(student.getId()).filter(s -> s.getId() != null).hasElement().flatMap(isPresent -> {
-			if (isPresent) {
-				return Mono.error(new DBException(DBExceptionCode.USER_ALREADY_EXIST));
-			}
-			return studentRepository.insert(student).flatMap(s -> Mono.just(new Student(s.getId(), s.getName(),
-					s.getClassEnrolled(), s.getRollNumber(), s.getAge(), "", s.getMobileNo(), s.getEmailId())));
-		});
+//		return getStudentById(student.getId()).filter(s -> s.getId() != null).hasElement().flatMap(isPresent -> {
+//			if (isPresent) {
+//				return Mono.error(new DBException(DBExceptionCode.USER_ALREADY_EXIST));
+//			}
+//			return studentRepository.insert(student).flatMap(s -> Mono.just(new Student(s.getId(), s.getName(),
+//					s.getClassEnrolled(), s.getRollNumber(), s.getAge(), "", s.getMobileNo(), s.getEmailId())));
+//		});
+		return getStudentById(student.getId())
+				.onErrorResume(exception -> {
+					if(exception instanceof DBException) {
+						DBException dbException = (DBException) exception;
+						if(dbException.getDbExceptionCode() != DBExceptionCode.USER_NOT_AVAILABLE) {
+							Mono.error(exception);
+						}
+						return studentRepository.insert(student).flatMap(s -> Mono.just(new Student(s.getId(), s.getName(),
+								s.getClassEnrolled(), s.getRollNumber(), s.getAge(), "", s.getMobileNo(), s.getEmailId())));
+					}
+					return Mono.error(exception);
+				});
 	}
 
 	public Mono<Student> updateStudent(Student student) {

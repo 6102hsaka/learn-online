@@ -1,0 +1,2 @@
+export const ROLE_TEACHER = "ROLE_TEACHER";
+export const ROLE_STUDENT = "ROLE_STUDENT";

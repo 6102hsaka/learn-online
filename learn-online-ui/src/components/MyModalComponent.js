@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, ButtonGroup , Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { StudentLogin, StudentRegister, TeacherLogin, TeacherRegister } from './MyForms';
 
 
 
@@ -22,12 +23,14 @@ const MyModal = props => {
     return (
         <Modal isOpen={props.isModalOpen} toggle={props.toggleModal}>
             <ModalHeader toggle={props.toggleModal}>
-                <h3>{props.headerText}</h3>
+                <span className="pr-5">{props.headerText}</span>
                 <MyButtonGroup clickListener={setRole} />
             </ModalHeader>
             <ModalBody>
-                {role}
-                <Button>Register</Button>
+                {(props.headerText==="Sign Up" && role==="TEACHER" && <TeacherRegister toogleForm={props.toggleModal} />)}
+                {(props.headerText==="Sign Up" && role==="STUDENT" && <StudentRegister toogleForm={props.toggleModal} />)}
+                {(props.headerText==="Sign In" && role==="TEACHER" && <TeacherLogin toogleForm={props.toggleModal} />)}
+                {(props.headerText==="Sign In" && role==="STUDENT" && <StudentLogin toogleForm={props.toggleModal} />)}
             </ModalBody>
         </Modal>
     )
