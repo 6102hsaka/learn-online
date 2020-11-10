@@ -6,7 +6,7 @@ import { Nav, NavItem, Button } from 'reactstrap';
 
 const Logout = () => {
     const dispatch = useDispatch();
-    const {role} = useSelector(state => state);
+    const {role} = useSelector(state => state.app);
 
     const handleClick = () => {
         if(role===ROLE_TEACHER) {

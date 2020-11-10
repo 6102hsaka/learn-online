@@ -1,5 +1,8 @@
 import {} from './ActionTypes';
-import { studentLoginFailure, studentLoginInit, studentLoginSuccess, studentRegistrationFailure, studentRegistrationInit, studentRegistrationSuccess } from './ActionCreators';
+import { getAllStudentFailure, getAllStudentInit, getAllStudentSuccess,
+        studentLoginFailure, studentLoginInit, studentLoginSuccess,
+        studentRegistrationFailure, studentRegistrationInit, studentRegistrationSuccess 
+    } from './ActionCreators';
 import axios from 'axios';
 
 export const loginStudent = srcData => (dispatch) => {
@@ -38,4 +41,16 @@ export const registerStudent = srcData => (dispatch) => {
     axios(options)
         .then(response => dispatch(studentRegistrationSuccess(response.data)))
         .catch(error => dispatch(studentRegistrationFailure(error.message)));
+}
+
+export const loadStudents = () => (dispatch) => {
+    dispatch(getAllStudentInit());
+
+    const options = {
+        url: 'http://localhost:8080/student/students',
+        method: 'GET',
+    }
+    axios(options)
+        .then(response => dispatch(getAllStudentSuccess(response.data)))
+        .catch(error => dispatch(getAllStudentFailure(error.message)));
 }

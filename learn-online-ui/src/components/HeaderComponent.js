@@ -1,11 +1,12 @@
 import React , { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem  } from 'reactstrap';
 import Login from './LoginComponent';
 import Logout from './LogoutComponent';
 
 const Header = () => {
-    const {role} = useSelector(state => state)
+    const {role} = useSelector(state => state.app)
     const [collapsed, setCollapsed] = useState(false);
     const toggleNavbar = () => setCollapsed(!collapsed);
     return (
@@ -16,16 +17,29 @@ const Header = () => {
                 <Collapse isOpen={collapsed} navbar >
                     <Nav navbar className="mr-auto">
                         <NavItem>
-                            <NavLink>Home</NavLink>
+                            <NavLink className='nav-link' to='/home'>
+                                Home
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>Profile</NavLink>
+                            <NavLink className='nav-link' to='/aboutus'>
+                                About US
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>About US</NavLink>
+                            <NavLink className='nav-link' to='/teachers'>
+                                Teachers
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>Contact US</NavLink>
+                            <NavLink className='nav-link' to='/students'>
+                                Students
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink className='nav-link' to='/chat'>
+                                Chat
+                            </NavLink>
                         </NavItem>
                     </Nav>
                     {role==="" && <Login />}

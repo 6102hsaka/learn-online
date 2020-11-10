@@ -1,5 +1,5 @@
 import {} from './ActionTypes';
-import { teacherLoginFailure, teacherLoginInit, teacherLoginSuccess, 
+import { getAllTeacherFailure, getAllTeacherInit, getAllTeacherSuccess, teacherLoginFailure, teacherLoginInit, teacherLoginSuccess, 
     teacherRegistrationFailure, teacherRegistrationInit, teacherRegistrationSuccess } from './ActionCreators';
 import axios from 'axios';
 
@@ -41,3 +41,14 @@ export const registerTeacher = srcData => (dispatch) => {
         .catch(error => dispatch(teacherRegistrationFailure(error.message)));
 }
 
+export const loadTeachers = () => (dispatch) => {
+    dispatch(getAllTeacherInit());
+
+    const options = {
+        url: 'http://localhost:8080/teacher/teachers',
+        method: 'GET'
+    };
+    axios(options)
+        .then(response => dispatch(getAllTeacherSuccess(response.data)))
+        .catch(error => dispatch(getAllTeacherFailure(error.message)));
+}

@@ -1,5 +1,7 @@
 package com.sharma.akash.learnonline.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,8 +31,8 @@ public class StudentController {
 	private StudentService service;
 
 	@GetMapping(value = "/students", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-	public Flux<Student> getAllStudents() {
-		return service.getAllStudents();
+	public Mono<List<Student>> getAllStudents() {
+		return service.getAllStudents().collectList();
 	}
 
 	@GetMapping(value = "/{id}")

@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Col, Button, Form, FormGroup, Label, Input, Row } from 'reactstrap';
 import { loginStudent, loginTeacher, registerTeacher, registerStudent } from '../redux';
+import InputError from './InputErrorComponent';
 
-const InputError = props => <div className="text-danger">**{props.msg}</div>
 
 export const TeacherRegister = props => {
     const dispatch = useDispatch();

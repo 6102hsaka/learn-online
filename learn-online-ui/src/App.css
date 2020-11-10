@@ -27,6 +27,11 @@
     z-index: 5;
 }
 
+.msg-box {
+    border-radius: 1rem;
+    background-color: #FFF;
+}
+
 .custom-footer {
     min-height: 12rem;
     background-color: #ebb1b1;

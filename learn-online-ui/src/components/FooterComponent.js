@@ -1,6 +1,7 @@
 import { faEnvelope, faPhone, faFax } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
 const Footer = () => (
@@ -10,9 +11,10 @@ const Footer = () => (
                 <Col xs={{ size:3, offset:1}}>
                     <h4>Links</h4>
                     <ul className="list-unstyled">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/">About Us</a></li>
-                        <li><a href="/">Contact Us</a></li>
+                        <li> <Link to='/home'>Home</Link> </li>
+                        <li> <Link to='/aboutus'>About US</Link> </li>
+                        <li> <Link to='/teachers'>Teachers</Link> </li>
+                        <li> <Link to='/students'>Students</Link> </li>
                     </ul>
                 </Col>
                 <Col xs={{size:6, offset:1}}>

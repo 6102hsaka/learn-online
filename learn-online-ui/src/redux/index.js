@@ -1,9 +1,12 @@
 // for teachers
-export { loginTeacher, registerTeacher } from './teacher/Middleware';
+export { loginTeacher, registerTeacher, loadTeachers } from './teacher/Middleware';
 export { teacherLogout } from './teacher/ActionCreators';
 
 
 // for students
-export { loginStudent, registerStudent } from './student/Middleware';
+export { loginStudent, registerStudent, loadStudents } from './student/Middleware';
 export { studentLogout } from './student/ActionCreators';
+
+// for email
+export {sendEMail } from './email/ActionCreators';
 

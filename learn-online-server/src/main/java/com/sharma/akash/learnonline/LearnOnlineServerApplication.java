@@ -9,5 +9,4 @@ public class LearnOnlineServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LearnOnlineServerApplication.class, args);
 	}
-
 }
