@@ -8,5 +8,7 @@ export { loginStudent, registerStudent, loadStudents } from './student/Middlewar
 export { studentLogout } from './student/ActionCreators';
 
 // for email
-export {sendEMail } from './email/ActionCreators';
+export { sendEMail } from './email/ActionCreators';
 
+// for chat messages
+export { loadMessages } from './chat/Middleware';

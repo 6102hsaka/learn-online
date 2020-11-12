@@ -9,9 +9,9 @@ import Teachers from './Teachers';
 
 const MainComponent = () => {
     const {role, user} = useSelector(state => state.app)
-    return (<div className="container-fluid">
+    return (<div className="container-fluid" style={{minHeight:'50vh'}}>
         { (role!=="") && <p>Hi, {user.name}</p>}
-        { (role==="") && <p>Welcome user</p> }
+        { (role==="") && <p>Welcome to our site</p> }
         <Switch>
             <Route path='/home' component={Home} />
             <Route path='/aboutus' component={About} />

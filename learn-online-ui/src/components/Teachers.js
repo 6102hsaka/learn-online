@@ -15,10 +15,10 @@ const Teachers = () => {
 
     let MyList = <div></div>;
     if(teachers.length>=1) {
-        MyList = teachers.map(teacher => <Col sm={6} lg={4}><UserElement element={teacher} type={ROLE_TEACHER}/></Col>)
+        MyList = teachers.map(teacher => <Col sm={6} lg={4} key={teacher.id}><UserElement element={teacher} type={ROLE_TEACHER}/></Col>)
     }
     MyList = <Row>{MyList}</Row>
-    return isLoading ? <Loading /> : <p>{error ? Error- {error} : MyList}</p>;
+    return isLoading ? <Loading /> : <div>{error ? Error- {error} : MyList}</div>;
 }
 
 export default Teachers;
